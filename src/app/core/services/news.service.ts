@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { baseUrl } from '../config';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,6 @@ export class NewsService {
     .set('category', category)
     .set('language', language);
 
-    return this.http.get<any>('/api/sources', { params: params });
+    return this.http.get<any>(`${baseUrl}/sources`, { params: params });
   }
 }
