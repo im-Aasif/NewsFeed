@@ -1,0 +1,4 @@
+<mat-card class="card" *ngFor="let source of sources | async">
+  <mat-card-title>{{source.name}}</mat-card-title>
+  <mat-card-subtitle>{{source.description}}</mat-card-subtitle>
+</mat-card>

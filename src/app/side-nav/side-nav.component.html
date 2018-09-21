@@ -8,12 +8,16 @@
 
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #sideNav [mode]="mobileQuery.matches ? 'over':'side'" [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56" class="example-sidenav">
+      fixedTopGap="56" class="example-sidenav" [style.minWidth]="mobileQuery.matches ? '50%' : '15%'">
       <mat-nav-list>
-        <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">
-          <mat-icon mat-list-icon>note</mat-icon> {{nav}}
+        <a mat-list-item routerLink="/home" routerLinkActive='active' (click)="toggleSideNav()">
+          <mat-icon mat-list-icon>note</mat-icon> Feed
+        </a>
+        <a mat-list-item routerLink="/source" (click)="toggleSideNav()">
+          <mat-icon mat-list-icon>note</mat-icon> Sources
         </a>
       </mat-nav-list>
+      <p class="attribution">Attribution to <a href="https://newsapi.org" target="_blank">NewsAPI</a></p>
     </mat-sidenav>
 
     <mat-sidenav-content>

@@ -2,9 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy } from '@ang
 import { MatSidenav } from '@angular/material';
 import { SideNavService } from './services/side-nav.service';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { NewsService } from '../core/services/news.service';
-import { HttpErrorResponse } from '@angular/common/http';
-
+import { NewsCategory } from '../core/models/news-category.enum';
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
@@ -17,7 +15,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
 
-  fillerNav = Array.from({ length: 10 }, (_, i) => `${i + 1} Lorem ipsum dolor sit amet,`);
+  fillerNav = Object.values(NewsCategory);
 
   fillerContent = Array.from({ length: 10 }, (_, i) =>
     `${i + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -29,9 +27,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: SideNavService,
-    private newsService: NewsService,
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher) {
+    media: MediaMatcher
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -39,14 +37,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.service.setSideNav(this.sideNav);
-    this.newsService.getSources('technology').subscribe(
-      (response: any) => {
-        console.log(JSON.stringify(response, null, 2));
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
   }
 
   ngOnDestroy(): void {
